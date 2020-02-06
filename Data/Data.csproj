@@ -5,7 +5,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="EntityFramework" Version="6.4.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="2.0.0-preview1-final" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
+    </ItemGroup>
+    <ItemGroup>
+        <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
+        <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
     </ItemGroup>
 
 </Project>
