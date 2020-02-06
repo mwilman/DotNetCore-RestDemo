@@ -12,5 +12,10 @@ namespace Data.Context
             optionsBuilder.UseSqlServer(
                 @"Server=(local);Initial Catalog=MyDb;Integrated Security=True;User Id=sa;Password=MyPass@word; Trusted_Connection=False");
         }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Game>().ToTable("Games");
+        }
     }
 }
