@@ -4,29 +4,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Context
 {
-    public class ApplicationContext: DbContext
+    public class ApplicationContext : DbContext
     {
         public DbSet<Game> Games { get; set; }
-        
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Game>().HasData(
-                new Game()
+                new Game
                 {
                     ID = 1,
-                    Name = "Tetris",
+                    Name = "Tetris"
                 },
-                new Game()
+                new Game
                 {
                     ID = 2,
-                    Name = "Mario",
+                    Name = "Mario"
                 }
             );
-            
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -34,7 +34,8 @@ namespace RestDemo
             services.AddScoped(typeof(IRepository<Game>), typeof(GamesRepository));
 
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(
-                @"Server=(local);Initial Catalog=MyDb;Integrated Security=True;User Id=sa;Password=MyPass@word; Trusted_Connection=False"));
+                Configuration.GetConnectionString("DefaultConnection"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
