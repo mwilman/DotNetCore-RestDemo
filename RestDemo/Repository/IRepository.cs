@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace RestDemo.Controllers
+namespace RestDemo.Repository
 {
     public interface IRepository<T>
     {
-        void Insert(T element);
+        T Insert(T element);
         void Delete(T element);
         void Update(T element);
         T GetById(int id);

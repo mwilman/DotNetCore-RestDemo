@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Data.Entities;
+using Data.Model;
 using Microsoft.AspNetCore.Mvc;
+using RestDemo.Repository;
 
 namespace RestDemo.Controllers
 {
@@ -16,9 +18,33 @@ namespace RestDemo.Controllers
         }
         
         [HttpGet]
-        public IList<Game> GetAllGames()
+        public IList<GameDto> GetAllGames()
         {
-            return _gamesRepository.GetAll().ToList();
+            var liste = _gamesRepository.GetAll().ToList();
+            var ausgabe = new List<GameDto>();
+            foreach (Game game in liste)
+            {
+                    ausgabe.Add(new GameDto
+                    {
+                        Name = game.Name
+                    }
+                );
+            }
+
+            return ausgabe;
+        }
+
+        [HttpPost]
+        public Game AddGame(CreateGameDto createGame)
+        {
+            Game game = new Game
+            {
+                Name = createGame.Name
+            };
+
+            var result = _gamesRepository.Insert(game);
+            _gamesRepository.Save();
+            return result;
         }
     }
 }

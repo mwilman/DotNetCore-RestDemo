@@ -3,7 +3,7 @@ using System.Linq;
 using Data.Context;
 using Data.Entities;
 
-namespace RestDemo.Controllers
+namespace RestDemo.Repository
 {
     public class GamesRepository: IRepository<Game>
     {
@@ -13,9 +13,9 @@ namespace RestDemo.Controllers
         {
             _context = context;
         }
-        public void Insert(Game element)
+        public Game Insert(Game element)
         {
-            _context.Games.Add(element);
+            return _context.Games.Add(element).Entity;
         }
 
         public void Delete(Game element)
@@ -30,7 +30,7 @@ namespace RestDemo.Controllers
 
         public Game GetById(int id)
         {
-            throw new System.NotImplementedException();
+            return _context.Games.FirstOrDefault(element => element.ID == id);
         }
 
         public void Save()
