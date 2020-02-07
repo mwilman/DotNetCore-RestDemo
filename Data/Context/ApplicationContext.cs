@@ -7,6 +7,11 @@ namespace Data.Context
     public class ApplicationContext: DbContext
     {
         public DbSet<Game> Games { get; set; }
+        
+        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+            : base(options)
+        {
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Game>().HasData(

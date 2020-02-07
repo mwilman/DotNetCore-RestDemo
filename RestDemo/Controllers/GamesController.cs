@@ -9,8 +9,8 @@ namespace RestDemo.Controllers
     [Route("games")]
     public class GamesController: ControllerBase
     {
-        private readonly GamesRepository _gamesRepository;
-        public GamesController(GamesRepository _gamesRepository)
+        private readonly IRepository<Game> _gamesRepository;
+        public GamesController(IRepository<Game> _gamesRepository)
         {
             this._gamesRepository = _gamesRepository;
         }

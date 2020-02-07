@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Context;
+using Data.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RestDemo.Controllers;
 
 namespace RestDemo
 {
@@ -28,6 +30,8 @@ namespace RestDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddScoped(typeof(IRepository<Game>), typeof(GamesRepository));
 
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(
                 @"Server=(local);Initial Catalog=MyDb;Integrated Security=True;User Id=sa;Password=MyPass@word; Trusted_Connection=False"));
