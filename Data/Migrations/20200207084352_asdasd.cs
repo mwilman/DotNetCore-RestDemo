@@ -2,7 +2,7 @@
 
 namespace Data.Migrations
 {
-    public partial class init : Migration
+    public partial class asdasd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
