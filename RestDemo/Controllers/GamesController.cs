@@ -12,9 +12,9 @@ namespace RestDemo.Controllers
     public class GamesController: ControllerBase
     {
         private readonly IRepository<Game> _gamesRepository;
-        public GamesController(IRepository<Game> _gamesRepository)
+        public GamesController(IRepository<Game> gamesRepository)
         {
-            this._gamesRepository = _gamesRepository;
+            _gamesRepository = gamesRepository;
         }
         
         [HttpGet]
