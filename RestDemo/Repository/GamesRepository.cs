@@ -20,7 +20,7 @@ namespace RestDemo.Repository
 
         public void Delete(int id)
         {
-            var element = _context.Games.FirstOrDefault(element => element.ID == id);
+            Game element = _context.Games.FirstOrDefault(element => element.ID == id);
             _context.Games.Remove(element);
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Data.Entities;
 using Data.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -12,37 +13,27 @@ namespace RestDemo.Controllers
     public class GamesController: ControllerBase
     {
         private readonly IRepository<Game> _gamesRepository;
-        public GamesController(IRepository<Game> gamesRepository)
+        private readonly IMapper _mapper;
+        public GamesController(IRepository<Game> gamesRepository, IMapper mapper)
         {
             _gamesRepository = gamesRepository;
+            _mapper = mapper;
         }
         
         [HttpGet]
         public IActionResult GetAllGames()
         {
-            var liste = _gamesRepository.GetAll().ToList();
-            var ausgabe = new List<GameDto>();
-            foreach (Game game in liste)
-            {
-                    ausgabe.Add(new GameDto
-                    {
-                        Name = game.Name
-                    }
-                );
-            }
+            List<Game> liste = _gamesRepository.GetAll().ToList();
 
-            return Ok(ausgabe);
+            return Ok(_mapper.Map<IEnumerable<GameDto>>(liste));
         }
 
         [HttpPost]
         public IActionResult AddGame(CreateGameDto createGame)
         {
-            Game game = new Game
-            {
-                Name = createGame.Name
-            };
+            Game game = _mapper.Map<Game>(createGame);
 
-            var result = _gamesRepository.Insert(game);
+            Game result = _gamesRepository.Insert(game);
             _gamesRepository.Save();
             return Ok(result);
         }
@@ -51,20 +42,15 @@ namespace RestDemo.Controllers
         [HttpGet]
         public IActionResult GetGameById(int id)
         {
-            var result = _gamesRepository.GetById(id);
-            return Ok(
-                new GameDto
-                {
-                    Name = result.Name
-                }
-            );
+            Game result = _gamesRepository.GetById(id);
+            return Ok(_mapper.Map<GameDto>(result));
         }
 
         [Route("{id}")]
         [HttpPut]
         public IActionResult UpdateGameById(int id, GameDto game)
         {
-            var entity = _gamesRepository.GetById(id);
+            Game entity = _gamesRepository.GetById(id);
             entity.Name = game.Name;
             _gamesRepository.Save();
             return Ok(entity);
