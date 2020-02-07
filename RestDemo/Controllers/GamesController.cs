@@ -46,5 +46,16 @@ namespace RestDemo.Controllers
             _gamesRepository.Save();
             return result;
         }
+
+        [Route("{id}")]
+        [HttpGet]
+        public GameDto GetGameById(int id)
+        {
+            var result = _gamesRepository.GetById(id);
+            return new GameDto
+            {
+                Name = result.Name
+            };
+        }
     }
 }
