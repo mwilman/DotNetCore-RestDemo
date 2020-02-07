@@ -5,7 +5,7 @@ namespace RestDemo.Repository
     public interface IRepository<T>
     {
         T Insert(T element);
-        void Delete(T element);
+        void Delete(int id);
         void Update(T element);
         T GetById(int id);
         void Save();

@@ -18,9 +18,10 @@ namespace RestDemo.Repository
             return _context.Games.Add(element).Entity;
         }
 
-        public void Delete(Game element)
+        public void Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var element = _context.Games.FirstOrDefault(element => element.ID == id);
+            _context.Games.Remove(element);
         }
 
         public void Update(Game element)

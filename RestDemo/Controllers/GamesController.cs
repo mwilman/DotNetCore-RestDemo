@@ -18,7 +18,7 @@ namespace RestDemo.Controllers
         }
         
         [HttpGet]
-        public IList<GameDto> GetAllGames()
+        public IActionResult GetAllGames()
         {
             var liste = _gamesRepository.GetAll().ToList();
             var ausgabe = new List<GameDto>();
@@ -31,11 +31,11 @@ namespace RestDemo.Controllers
                 );
             }
 
-            return ausgabe;
+            return Ok(ausgabe);
         }
 
         [HttpPost]
-        public Game AddGame(CreateGameDto createGame)
+        public IActionResult AddGame(CreateGameDto createGame)
         {
             Game game = new Game
             {
@@ -44,18 +44,39 @@ namespace RestDemo.Controllers
 
             var result = _gamesRepository.Insert(game);
             _gamesRepository.Save();
-            return result;
+            return Ok(result);
         }
 
         [Route("{id}")]
         [HttpGet]
-        public GameDto GetGameById(int id)
+        public IActionResult GetGameById(int id)
         {
             var result = _gamesRepository.GetById(id);
-            return new GameDto
-            {
-                Name = result.Name
-            };
+            return Ok(
+                new GameDto
+                {
+                    Name = result.Name
+                }
+            );
+        }
+
+        [Route("{id}")]
+        [HttpPut]
+        public IActionResult UpdateGameById(int id, GameDto game)
+        {
+            var entity = _gamesRepository.GetById(id);
+            entity.Name = game.Name;
+            _gamesRepository.Save();
+            return Ok(entity);
+        }
+
+        [Route("{id}")]
+        [HttpDelete]
+        public IActionResult UpdateGameById(int id)
+        {
+             _gamesRepository.Delete(id);
+            _gamesRepository.Save();
+            return NoContent();
         }
     }
 }
